@@ -10,9 +10,11 @@ void clear_mat (uint8_t mat[16][16]);
 void initializeShip (ship_t * sh);
 void copyCustomShip (ship_t * sh);
 void introduceShip (ship_t *sh, uint8_t mat[16][16]);
-
+void rotateMatClockwise (uint8_t mat[][SHIPSIZE]);
+void transposeMat (uint8_t mat[][SHIPSIZE]);
 /*****************************************************************************************************************************************************/
-uint8_t customShip[6][6]= {{0,1,0,0,0,0},{1,1,1,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0}};
+uint8_t normalShip[SHIPSIZE][SHIPSIZE]= {{0,1,0},{1,1,1},{0,0,0}};
+uint8_t diagonalShip[SHIPSIZE][SHIPSIZE]= {{1,0,1},{0,1,0},{0,0,1}};
 
 int main (void)
 {
@@ -68,7 +70,7 @@ void copyCustomShip (ship_t * sh){
 	{
 		for(int j=0; j<SHIPSIZE; j++)
 		{
-			sh->shape[i][j]= customShip[i][j];
+			sh->shape[i][j]= normalShip[i][j];
 		}
 	}
 }
@@ -79,4 +81,26 @@ void introduceShip (ship_t *sh, uint8_t mat[16][16]){
 			mat[i+sh->posx][j+sh->posy]= sh->shape[i][j];
 		}
 	}
+}
+
+void rotateMatClockwise (uint8_t mat[][SHIPSIZE]){
+
+}
+
+void transposeMat ( uint8_t mat[][SHIPSIZE]){
+	int i,j;
+	uint8_t auxValue;
+	for(i=0; i<SHIPSIZE; i++)
+	{
+		for(j=0; j<SHIPSIZE; j++)
+		{
+			if(i!=j)
+			{
+				auxValue= mat[i][j];
+				mat[i][j]=mat[j][i];
+				mat[j][i]=auxValue;
+			}
+		}
+	}
+
 }
