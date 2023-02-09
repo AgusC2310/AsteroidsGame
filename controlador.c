@@ -4,20 +4,14 @@
 #include <stdlib.h>
 #include "controlador.h"
 
-/************************************************************PROTOTYPES******************************************************************************/
-void print_mat (uint8_t mat[16][16]);
-void clear_mat (uint8_t mat[16][16]);
-void initializeShip (ship_t * sh);
-void copyCustomShip (ship_t * sh);
-void introduceShip (ship_t *sh, uint8_t mat[16][16]);
-void rotateMatClockwise (uint8_t mat[][SHIPSIZE]);
-void transposeMat (uint8_t mat[][SHIPSIZE]);
-void clearShip (uint8_t mat[SHIPSIZE][SHIPSIZE]);
-void printShip (uint8_t mat[SHIPSIZE][SHIPSIZE]);
-/*****************************************************************************************************************************************************/
+
 static const uint8_t normalShip[SHIPSIZE][SHIPSIZE]= {{0,1,0},{1,1,1},{0,0,0}};
 static const uint8_t diagonalShip[SHIPSIZE][SHIPSIZE]= {{0,1,1},{0,0,1},{0,0,0}};
-
+static const uint8_t XSAsteroid[XSMALL][XSMALL]={{1,1},{1,1}};
+static const uint8_t SAsteroid[SMALL][SMALL]={{1,1,1},{1,0,1},{1,1,1}};
+static const uint8_t MAsteroid[MEDIUM][MEDIUM]={{0,0,1,0},{1,1,0,1},{1,0,0,1},{0,1,1,0}};
+static const uint8_t LAsteroid[LARGE][LARGE]={{0,1,1,0,0},{1,0,0,1,0},{1,0,0,1,0},{1,1,1,0,1},{0,0,1,1,0}};
+static const uint8_t XLAsteroid[XLARGE][XLARGE]={{0,1,1,0,0},{1,0,0,1,0},{1,0,0,1,0},{1,1,1,0,1},{0,0,1,1,0}};
 int main (void)
 {
 	uint8_t matrix[16][16];
@@ -156,3 +150,53 @@ void transposeMat ( uint8_t mat[][SHIPSIZE]){
 	}
 
 }
+void freeAsteroid(asteroid_t* asteroid)
+{
+	int i;
+	for(i=0;i<asteroid->size;i++)
+		{
+			free(asteroid->shape[i]);
+		}
+	free(asteroid->shape);
+}
+
+int allocateAsteroidShape(asteroid_t* asteroid)
+{
+	int i,j;
+	bool status= true;
+    asteroid->shape = malloc(asteroid->size*sizeof(uint8_t *));
+	if(asteroid->shape== NULL){
+		fprintf(stderr, "Error allocating Asteroid memory!");
+		free(asteroid->shape);
+		status = false;
+	}
+	if(status)
+	{
+		for(i=0; i<5; i++)
+		{
+			asteroid->shape[i]=malloc(asteroid->size*sizeof(uint8_t));
+			if(asteroid->shape[i]==NULL)
+			{
+				for(;i>=0;i--)
+				{
+					free(asteroid->shape[i]);
+				}
+				free(asteroid->shape);
+				status= false;
+			}
+	}
+	if(status)
+	{
+		for(i=0;i<asteroid->size;i++)
+		{
+			for(j=0;j<asteroid->size;j++)
+			{
+				asteroid->shape[i][j]=asteroid->size;
+			}
+		}
+	}
+	
+	return status -1;	//0 if true, -1 if false.
+}
+
+

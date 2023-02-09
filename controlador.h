@@ -13,6 +13,8 @@ void rotateMatClockwise (uint8_t mat[][SHIPSIZE]);
 void transposeMat (uint8_t mat[][SHIPSIZE]);
 void clearShip (uint8_t mat[SHIPSIZE][SHIPSIZE]);
 void printShip (uint8_t mat[SHIPSIZE][SHIPSIZE]);
+int allocateAsteroidShape(asteroid_t* asteroid);
+void freeAsteroid(asteroid_t* asteroid);
 /*****************************************************************************************************************************************************/
 
 
