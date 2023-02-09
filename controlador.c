@@ -150,22 +150,14 @@ void transposeMat ( uint8_t mat[][SHIPSIZE]){
 	}
 
 }
-void freeAsteroid(asteroid_t* asteroid)
-{
-	int i;
-	for(i=0;i<asteroid->size;i++)
-		{
-			free(asteroid->shape[i]);
-		}
-	free(asteroid->shape);
-}
 
 int allocateAsteroidShape(asteroid_t* asteroid)
 {
 	int i,j;
 	bool status= true;
     asteroid->shape = malloc(asteroid->size*sizeof(uint8_t *));
-	if(asteroid->shape== NULL){
+	if(asteroid->shape== NULL)
+	{
 		fprintf(stderr, "Error allocating Asteroid memory!");
 		free(asteroid->shape);
 		status = false;
@@ -184,6 +176,7 @@ int allocateAsteroidShape(asteroid_t* asteroid)
 				free(asteroid->shape);
 				status= false;
 			}
+		}
 	}
 	if(status)
 	{
@@ -197,6 +190,16 @@ int allocateAsteroidShape(asteroid_t* asteroid)
 	}
 	
 	return status -1;	//0 if true, -1 if false.
+}
+
+void freeAsteroid(asteroid_t* asteroid)
+{
+	int i;
+	for(i=0;i<asteroid->size;i++)
+		{
+			free(asteroid->shape[i]);
+		}
+	free(asteroid->shape);
 }
 
 
