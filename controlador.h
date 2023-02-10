@@ -16,7 +16,10 @@ void printShip (uint8_t mat[SHIPSIZE][SHIPSIZE]);
 int allocateAsteroidShape(asteroid_t* asteroid);
 void freeAsteroidShape(asteroid_t* asteroid);
 void insertAsteroid(uint8_t size);
+void initializeAsteroid(uint8_t size, asteroid_t* asteroid);
+void updateAsteroids (void);
 /*****************************************************************************************************************************************************/
 
+#define BASICGRAVITY 90
 
 #endif

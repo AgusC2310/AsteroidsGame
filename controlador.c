@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include "controlador.h"
-
+#include "modelo.h"
 
 static const uint8_t normalShip[SHIPSIZE][SHIPSIZE]= {{0,1,0},{1,1,1},{0,0,0}};
 static const uint8_t diagonalShip[SHIPSIZE][SHIPSIZE]= {{0,1,1},{0,0,1},{0,0,0}};
@@ -12,6 +12,8 @@ static const uint8_t SAsteroid[SMALL][SMALL]={{1,1,1},{1,0,1},{1,1,1}};
 static const uint8_t MAsteroid[MEDIUM][MEDIUM]={{0,0,1,0},{1,1,0,1},{1,0,0,1},{0,1,1,0}};
 static const uint8_t LAsteroid[LARGE][LARGE]={{0,1,1,0,0},{1,0,0,1,0},{1,0,0,1,0},{1,1,1,0,1},{0,0,1,1,0}};
 static const uint8_t XLAsteroid[XLARGE][XLARGE]={{0,1,1,0,0},{1,0,0,1,0},{1,0,0,1,0},{1,1,1,0,1},{0,0,1,1,0}};
+
+static uint8_t updateTime_ms;
 int main (void)
 {
 	uint8_t matrix[16][16];
@@ -203,5 +205,26 @@ void freeAsteroidShape(asteroid_t* asteroid)
 }
 
 void insertAsteroid(uint8_t size){
-	if(AsterListHeaderNode == NULL)
+	asteroid_t * newAster = (asteroid_t *)malloc(sizeof(asteroid_t));
+
+	if(AsterListHeaderNode == NULL){
+
+	}
+}
+
+void updateAsteroids (void){
+
+}
+
+void initializeAsteroid(uint8_t size, asteroid_t* asteroid){
+	asteroid->acelx=0;
+	asteroid->acely=0;
+	asteroid->direction= rand()%9;	//random direction for the enum (0 to 8)
+	asteroid->nextAster= NULL;
+	asteroid->prevAster= NULL;
+	if(rand()%2)		//random decision on which of the four sides of the screen the asteroid spawns
+	{
+	asteroid->posx=rand()%17000;	//
+	
+	}
 }

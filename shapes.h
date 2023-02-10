@@ -19,8 +19,7 @@ typedef struct {
     int16_t vely;  //y velocity of the top left element of the matrix
     int16_t acelx; //x aceleration of the top left element of the matrix
     int16_t acely; //y aceleration of the top left element of the matrix
-    uint8_t direction;
-    bool gravity;    
+    uint8_t direction;  
 } ship_t;
 
 typedef struct asteroid_t {
@@ -33,11 +32,13 @@ typedef struct asteroid_t {
     int16_t acelx; //x aceleration of the top left element of the matrix
     int16_t acely; //y aceleration of the top left element of the matrix
     uint8_t direction;
-    bool gravity;
     struct asteroid_t * nextAster;
     struct asteroid_t * prevAster;
 } asteroid_t;
 
-
+typedef struct{
+    asteroid_t * firstAsteroid;
+    uint16_t size;
+}   asteroidList_t;
 
 #endif
