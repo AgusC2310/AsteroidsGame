@@ -192,7 +192,7 @@ int allocateAsteroidShape(asteroid_t* asteroid)
 	return status -1;	//0 if true, -1 if false.
 }
 
-void freeAsteroid(asteroid_t* asteroid)
+void freeAsteroidShape(asteroid_t* asteroid)
 {
 	int i;
 	for(i=0;i<asteroid->size;i++)
@@ -202,4 +202,6 @@ void freeAsteroid(asteroid_t* asteroid)
 	free(asteroid->shape);
 }
 
-
+void insertAsteroid(uint8_t size){
+	if(AsterListHeaderNode == NULL)
+}
