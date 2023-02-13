@@ -18,6 +18,8 @@ void freeAsteroidShape(asteroid_t* asteroid);
 void insertAsteroid(uint8_t size);
 void initializeAsteroid(uint8_t size, asteroid_t* asteroid);
 void updateAsteroids (void);
+
+void copyAsteroidShape (uint8_t size, asteroid_t* asteroid);
 /*****************************************************************************************************************************************************/
 
 #define BASICGRAVITY 90
