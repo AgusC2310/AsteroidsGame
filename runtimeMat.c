@@ -49,5 +49,7 @@ int main (void){
         printf("No es ni 1 ni 0\n");
         break;
     }
+
+
     return 0;
 }
