@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "shapes.h"
-
+#include "model.h"
 
 void printAsteroid (asteroid_t* asteroid){
     int i,j;
@@ -9,8 +9,11 @@ void printAsteroid (asteroid_t* asteroid){
     {
         for(j=0;j<asteroid->size;j++)
         {
-            
+            if(asteroid->shape[i][j])
+            {
+            Public_Game_Matrix[i+asteroid->posx][j+asteroid->posy]= asteroid->shape[i][j];
+            }
         }
     }
-    asteroid->shape
+    
 }
