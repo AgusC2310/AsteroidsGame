@@ -2,8 +2,8 @@
 #include <stdint.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include "controlador.h"
-#include "modelo.h"
+#include "controller.h"
+#include "model.h"
 
 static const uint8_t normalShip[SHIPSIZE][SHIPSIZE]= {{0,1,0},{1,1,1},{0,0,0}};
 static const uint8_t diagonalShip[SHIPSIZE][SHIPSIZE]= {{0,1,1},{0,0,1},{0,0,0}};
@@ -22,7 +22,7 @@ int main (void)
 	ship.posx=4;
 	ship.posy= 4;
 	
-	clear_mat(matrix);
+	clearGameMatrix(matrix);
 	introduceShip(&ship, matrix);
 	//print_mat(matrix);
 	printShip(ship.shape);
@@ -31,6 +31,11 @@ int main (void)
 	rotateMatClockwise(ship.shape);
 	printShip(ship.shape);
 	}
+
+	insertAsteroid(3);
+	insertAsteroid(5);
+
+	
 	//clear_mat(matrix);
 	//(&ship, matrix);
 	//print_mat(matrix);
@@ -177,6 +182,7 @@ int allocateAsteroidShape(asteroid_t* asteroid)
 				}
 				free(asteroid->shape);
 				status= false;
+				break;
 			}
 		}
 	}
@@ -221,6 +227,17 @@ void insertAsteroid(uint8_t size){
 	}
 }
 
+void freeAsteroid(asteroid_t* asteroid){
+	if(asteroid == NULL){
+		fprintf(stderr, "NULL pointer when destroying asteroid object");
+	}
+	else{
+	freeAsteroidShape(asteroid);
+	free(asteroid);
+	}
+}
+
+
 void updateAsteroids (void){
 
 }
@@ -237,7 +254,7 @@ void initializeAsteroid(uint8_t size, asteroid_t* asteroid){
 	asteroid->vely=0;
 	flag = allocateAsteroidShape(asteroid);
 	if(!flag){	//only if dynamic memory is successfully allocated
-		copyAsteroidShape(asteroid, size);
+		copyAsteroidShape( size, asteroid);
 	}
 	//position random initialization
 	if(rand()%2)		//random decision on which of the four sides of the screen the asteroid spawns

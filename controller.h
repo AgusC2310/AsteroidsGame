@@ -5,7 +5,7 @@
 
 /************************************************************PROTOTYPES******************************************************************************/
 void print_mat (uint8_t mat[16][16]);
-void clear_mat (uint8_t mat[16][16]);
+void clearGameMatrix (uint8_t mat[16][16]);
 void initializeShip (ship_t * sh);
 void copyCustomShip (ship_t * sh);
 void introduceShip (ship_t *sh, uint8_t mat[16][16]);
@@ -18,6 +18,7 @@ void freeAsteroidShape(asteroid_t* asteroid);
 void insertAsteroid(uint8_t size);
 void initializeAsteroid(uint8_t size, asteroid_t* asteroid);
 void updateAsteroids (void);
+void freeAsteroid(asteroid_t* asteroid);
 
 void copyAsteroidShape (uint8_t size, asteroid_t* asteroid);
 /*****************************************************************************************************************************************************/
