@@ -2,7 +2,7 @@
 #define VIEW_H
 
 #include "shapes.h"
-void printAsteroid (asteroid_t* asteroid);
+// void printAsteroid (asteroid_t* asteroid);
 
 
 

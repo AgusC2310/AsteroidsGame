@@ -19,7 +19,8 @@ void insertAsteroid(uint8_t size);
 void initializeAsteroid(uint8_t size, asteroid_t* asteroid);
 void updateAsteroids (void);
 void freeAsteroid(asteroid_t* asteroid);
-
+void freeAsteroidList(void);
+void printAsteroid(asteroid_t * asteroid);
 void copyAsteroidShape (uint8_t size, asteroid_t* asteroid);
 /*****************************************************************************************************************************************************/
 

@@ -34,8 +34,13 @@ int main (void)
 
 	insertAsteroid(3);
 	insertAsteroid(5);
-
-	
+	printf("AsterList size = %d\n", AsterList.size);
+	printAsteroid(AsterList.firstAsteroid);
+	printAsteroid(AsterList.firstAsteroid->nextAster);
+	freeAsteroidList();
+	if(AsterList.firstAsteroid==NULL){
+		printf("Correctly freed List\n");
+	}
 	//clear_mat(matrix);
 	//(&ship, matrix);
 	//print_mat(matrix);
@@ -212,18 +217,24 @@ void freeAsteroidShape(asteroid_t* asteroid)
 
 void insertAsteroid(uint8_t size){
 	asteroid_t * newAster = (asteroid_t *)malloc(sizeof(asteroid_t));	
-	initializeAsteroid(size, newAster);
-	if(AsterList.firstAsteroid == NULL){
-		AsterList.firstAsteroid = newAster;
-		AsterList.size=1;
+	if(newAster == NULL){
+		fprintf(stderr, "Failed to allocate memory in insertAsteroid\n");
 	}
 	else{
-		asteroid_t * currentAsteroid= AsterList.firstAsteroid;
-		while(currentAsteroid->nextAster != NULL){
-			currentAsteroid = currentAsteroid->nextAster;
+		initializeAsteroid(size, newAster);
+		if(AsterList.firstAsteroid == NULL){
+			AsterList.firstAsteroid = newAster;
+			AsterList.size=1;
 		}
-		currentAsteroid->nextAster= newAster;
-		newAster->prevAster = currentAsteroid;
+		else{
+			asteroid_t * currentAsteroid= AsterList.firstAsteroid;
+			while(currentAsteroid->nextAster != NULL){
+				currentAsteroid = currentAsteroid->nextAster;
+			}
+			currentAsteroid->nextAster= newAster;
+			newAster->prevAster = currentAsteroid;
+			AsterList.size++;
+		}
 	}
 }
 
@@ -234,6 +245,30 @@ void freeAsteroid(asteroid_t* asteroid){
 	else{
 	freeAsteroidShape(asteroid);
 	free(asteroid);
+	}
+}
+void freeAsteroidList(void){
+	int i=1;
+	asteroid_t *currentAsteroid= AsterList.firstAsteroid;
+	asteroid_t *nextAsteroid;
+	while(currentAsteroid->nextAster!=NULL){
+		nextAsteroid = currentAsteroid->nextAster;
+		free(currentAsteroid);
+		currentAsteroid= nextAsteroid;
+		AsterList.size--;
+		printf("Freed element number %d\n",i++);
+	}
+	free(currentAsteroid);
+	printf("Freed last element\n");
+}
+
+void printAsteroid(asteroid_t * asteroid){
+	int i,j; 
+	for(i=0; i<asteroid->size; i++){
+		for(j=0;j<asteroid->size; j++){
+			printf("%d",asteroid->shape[i][j]);
+		}
+		printf("\n");
 	}
 }
 
