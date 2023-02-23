@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
+enum ASD {CACA, HOLA};
+typedef int8_t (*event_listener)(void);
+int8_t func1 (void);
 char* assignStr(char * str);
 int main (void){
      int i;
@@ -31,7 +35,10 @@ int main (void){
     // printf("\n");
     char * MyStr= assignStr("Hello");
     printf("%s\n",MyStr);
-
+    printf("\n%d\n", CACA);
+    event_listener ev = func1;
+    int numRet= ev();
+    printf("Return num = %d\n",numRet);
     return 0;
 }
 
@@ -39,4 +46,9 @@ char* assignStr(char * str){
     char* ptr = malloc(sizeof(char*));
     ptr = str;
     return ptr;
+}
+
+int8_t func1 (void){
+    printf("\n Hola Mundo!!!!\n");
+    return 100;
 }
